@@ -6,9 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 <body>
-    
+    <div class="book_container">
+    </div>
+    <button class="form_button" onclick="openForm()">Click to add new book</button>
+    <div class="form_popup" id="bookForm">
+        <form action="" class="form_container">
+            <div><label for="author">Author:</label><input type="text" id="author" name="author"></div>
+            <div><label for="title">Title:</label><input type="text" id="title" name="title"></div>
+            <div><label for="number_of_pages">Number of Pages:</label><input type="number" id="number_of_pages" name="number_of_pages"></div>
+            <fieldset>
+                <div>
+                    <legend>Have you read the book?</legend>
+                    <input type="radio" id="Read" name="status" value="Read"><label for="Read">Read</label>
+                    <input type="radio" id="Not Read" name="status" value="Not Read"><label for="Not Read">Not Read</label>
+                </div>
+            </fieldset>
+            <button type="submit" id="submit_button">Submit</button>
+            <button class="cancel" type="button" onclick="closeForm()">Close</button>
+        </form>
+    </div>
 </body>
 </html>
