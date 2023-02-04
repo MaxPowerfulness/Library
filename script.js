@@ -12,6 +12,7 @@ form.addEventListener('submit', (event) => {
     console.log(myLibrary);
 });
 
+// Creates an object (book) from the information submitted in the form
 function createBook () {
     const formData = new FormData(form);
     const book = Object.fromEntries(formData);   // Takes the form data and creates a new object (book) using FormData API
@@ -20,14 +21,14 @@ function createBook () {
 };
 
 
-// Adds to books to the library array
+// Adds a book to the library array
 function addBookToLibrary(book) {
     myLibrary.push(book);
 };
 
-// Displays the book onto the webpage
+// Creates a card displaying the book information and appends it to the 'book_container' element
 function displayBook(libraryArray) {
-    // Adding book info
+    // Displaying book info
     let div = document.createElement('div');
     div.setAttribute("data-index", `${libraryIndexCounter}`) // Set data attribute to be able to remove book easily. 
     div.classList.add('book');
@@ -38,13 +39,14 @@ function displayBook(libraryArray) {
         };
         div.innerHTML += user[key] + '<br>';
     };
-    const newBook = bookContainer.appendChild(div);
+    bookContainer.appendChild(div);
     // Adding remove button
     const removeButton = document.createElement('button');
     removeButton.classList.add('remove_button');
     removeButton.textContent = 'Remove';
-    removeButton.addEventListener('click', (newBook) => {
-        bookContainer.removeChild(newBook.target.parentElement);
+    removeButton.addEventListener('click', () => {
+        bookContainer.removeChild(div); // Removes the entire card from the DOM when clicked
+        delete libraryArray[user.index]; // Removes the book from the libraryArray list. 
     });
     div.appendChild(removeButton);
     libraryIndexCounter++;
