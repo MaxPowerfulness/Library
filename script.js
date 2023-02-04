@@ -1,7 +1,7 @@
 // Global varibales
 let myLibrary = [];
 let libraryIndexCounter = 0;
-const bookContainer = document.querySelector('.book_container');
+const bookContainer = document.querySelector('.bookContainer');
 const form = document.querySelector('form');
 // Event Listeners
 form.addEventListener('submit', (event) => {
@@ -34,15 +34,17 @@ function displayBook(libraryArray) {
     div.classList.add('book');
     let user = libraryArray[libraryArray.length - 1];
     for (let key in user) {
-        if (key === 'index') {
+        if ((key === 'index') | (key === 'status')) {
             continue;
         };
         div.innerHTML += user[key] + '<br>';
     };
     bookContainer.appendChild(div);
+    // Adding read status button
+    toggleReadStatus(user, div);
     // Adding remove button
     const removeButton = document.createElement('button');
-    removeButton.classList.add('remove_button');
+    removeButton.classList.add('removeButton');
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => {
         bookContainer.removeChild(div); // Removes the entire card from the DOM when clicked
@@ -50,7 +52,33 @@ function displayBook(libraryArray) {
     });
     div.appendChild(removeButton);
     libraryIndexCounter++;
+
 };
+
+// Adds a toggleable button that conveys whether or not a book has been read
+function toggleReadStatus(user, div,) {
+    let readButton = document.createElement('button');
+    readButton.classList.add('readButton');
+    if (user.status === 'Read') {
+        readButton.textContent = 'Read';
+        readButton.classList.add('bookRead');
+    } else {
+        readButton.textContent = 'Not Read';
+        readButton.classList.add('bookNotRead');
+    };
+    readButton.addEventListener('click', () => {
+        if (readButton.textContent === 'Read') {
+            readButton.textContent = 'Not Read';
+            readButton.className = 'bookNotRead';
+            user.status = 'Not Read';
+        } else {
+            readButton.textContent = 'Read';
+            readButton.className = 'bookRead';
+            user.status = 'Read';
+        };
+    })
+    div.appendChild(readButton);
+}
 
 // Displays form when the form button is clicked
 function openForm() {

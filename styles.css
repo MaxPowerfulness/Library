@@ -3,3 +3,11 @@
     width: 125px;
     height: 100px;
 }
+
+.bookRead {
+    background: green;
+}
+
+.bookNotRead {
+    background: red;
+}
