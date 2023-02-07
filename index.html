@@ -9,24 +9,35 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
-    <div class="bookContainer">
-    </div>
-    <button class="form_button" onclick="openForm()">Click to add new book</button>
-    <div class="form_popup" id="bookForm">
-        <form action="" class="form_container">
-            <div><label for="author">Author:</label><input type="text" id="author" name="author"></div>
-            <div><label for="title">Title:</label><input type="text" id="title" name="title"></div>
-            <div><label for="number_of_pages">Number of Pages:</label><input type="number" id="number_of_pages" name="number_of_pages"></div>
-            <fieldset>
-                <div>
-                    <legend>Have you read the book?</legend>
-                    <input type="radio" id="Read" name="status" value="Read"><label for="Read">Read</label>
-                    <input type="radio" id="Not Read" name="status" value="Not Read"><label for="Not Read">Not Read</label>
+    <header>
+        <h1>Big ol' Library of Books</h1>
+    </header>
+    <main>
+        <div class="openBtn">
+            <button class="openButton" onclick="openForm()">Add New Book</button>
+        </div>
+        <div class="formPopup" id="popUpForm">
+            <form action="" class="form_container">
+                <div class="topContainer">
+                    <div class="inputContainer"><label for="author">Author:</label><input type="text" id="author" name="author"></div>
+                    <div class="inputContainer"><label for="title">Title:</label><input type="text" id="title" name="title"></div>
+                    <div class="inputContainer"><label for="number_of_pages">Number of Pages:</label><input type="number" id="number_of_pages" name="number_of_pages"></div>
                 </div>
-            </fieldset>
-            <button type="submit" id="submit_button">Submit</button>
-            <button class="cancel" type="button" onclick="closeForm()">Close</button>
-        </form>
-    </div>
+                <fieldset>
+                    <div class="inputContainer radioBtn">
+                        <legend>Have you read the book?</legend>
+                        <span class="radioContainer"><input type="radio" id="Read" name="status" value="Read"><label for="Read">Read</label></span>
+                        <span class="radioContainer"><input type="radio" id="Not Read" name="status" value="Not Read"><label for="Not Read">Not Read</label></span>
+                    </div>
+                </fieldset>
+                <div class="formButtons">
+                    <button type="submit" id="submit_button">Submit</button>
+                    <button type="button" onclick="closeForm()">Close</button>
+                </div>
+            </form>
+        </div>
+        <div class="bookContainer">
+        </div>
+    </main>
 </body>
 </html>

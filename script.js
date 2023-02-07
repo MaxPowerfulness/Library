@@ -3,13 +3,19 @@ let myLibrary = [];
 let libraryIndexCounter = 0;
 const bookContainer = document.querySelector('.bookContainer');
 const form = document.querySelector('form');
-// Event Listeners
+// Global Event Listeners
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const book = createBook();
-    addBookToLibrary(book);
-    displayBook(myLibrary);
-    console.log(myLibrary);
+    console.log(Object.values(book))
+    console.log('1:', Object.values(book)[0])
+    if ((Object.values(book)[0] === '') & (Object.values(book)[1] === '') & (Object.values(book)[2] === '')) {
+        return;
+    } else {
+        addBookToLibrary(book);
+        displayBook(myLibrary);
+        console.log(myLibrary);
+    };
 });
 
 // Creates an object (book) from the information submitted in the form
@@ -30,6 +36,8 @@ function addBookToLibrary(book) {
 function displayBook(libraryArray) {
     // Displaying book info
     let div = document.createElement('div');
+    let buttonDiv = document.createElement('div')
+    buttonDiv.classList.add('buttonContainer')
     div.setAttribute("data-index", `${libraryIndexCounter}`) // Set data attribute to be able to remove book easily. 
     div.classList.add('book');
     let user = libraryArray[libraryArray.length - 1];
@@ -37,11 +45,12 @@ function displayBook(libraryArray) {
         if ((key === 'index') | (key === 'status')) {
             continue;
         };
-        div.innerHTML += user[key] + '<br>';
+        div.innerHTML += '<div>' + user[key] + '</div>';
     };
     bookContainer.appendChild(div);
+    div.appendChild(buttonDiv);
     // Adding read status button
-    toggleReadStatus(user, div);
+    toggleReadStatus(user, buttonDiv);
     // Adding remove button
     const removeButton = document.createElement('button');
     removeButton.classList.add('removeButton');
@@ -50,7 +59,7 @@ function displayBook(libraryArray) {
         bookContainer.removeChild(div); // Removes the entire card from the DOM when clicked
         delete libraryArray[user.index]; // Removes the book from the libraryArray list. 
     });
-    div.appendChild(removeButton);
+    buttonDiv.appendChild(removeButton);
     libraryIndexCounter++;
 
 };
@@ -76,16 +85,13 @@ function toggleReadStatus(user, div,) {
             readButton.className = 'bookRead';
             user.status = 'Read';
         };
-    })
+    });
     div.appendChild(readButton);
-}
+};
 
-// Displays form when the form button is clicked
 function openForm() {
-    document.querySelector('#bookForm').style.display = 'block';
-};
-
-// Closes form when the close button is clicked
+    document.getElementById("popUpForm").style.display = "block";
+  };
 function closeForm() {
-    document.querySelector('#bookForm').style.display = 'none';
-};
+    document.getElementById("popUpForm").style.display = "none";
+  };  
