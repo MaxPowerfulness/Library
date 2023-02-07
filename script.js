@@ -3,6 +3,7 @@ let myLibrary = [];
 let libraryIndexCounter = 0;
 const bookContainer = document.querySelector('.bookContainer');
 const form = document.querySelector('form');
+const overlay = document.querySelector('#overlayDiv');
 // Global Event Listeners
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -91,7 +92,9 @@ function toggleReadStatus(user, div,) {
 
 function openForm() {
     document.getElementById("popUpForm").style.display = "block";
+    overlay.classList.toggle('overlay')
   };
 function closeForm() {
     document.getElementById("popUpForm").style.display = "none";
+    overlay.classList.toggle('overlay');
   };  
