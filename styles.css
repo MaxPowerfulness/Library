@@ -17,7 +17,6 @@ input {
 }
 
 body {
-    height: 100vh;
     background-color: #484538;
 }
 
@@ -34,6 +33,8 @@ header {
     padding: 20px 20px 10px 20px;
     border-bottom: 3px black solid;
     background-color: #CAD49D;
+    position: sticky;
+    top: 0px;
 }
 
 .openButton {
