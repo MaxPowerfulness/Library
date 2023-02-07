@@ -15,7 +15,7 @@ form.addEventListener('submit', (event) => {
     } else {
         addBookToLibrary(book);
         displayBook(myLibrary);
-        console.log(myLibrary);
+        closeForm();
     };
 });
 
@@ -79,11 +79,11 @@ function toggleReadStatus(user, div,) {
     readButton.addEventListener('click', () => {
         if (readButton.textContent === 'Read') {
             readButton.textContent = 'Not Read';
-            readButton.className = 'bookNotRead';
+            readButton.className = 'bookNotRead readButton';
             user.status = 'Not Read';
         } else {
             readButton.textContent = 'Read';
-            readButton.className = 'bookRead';
+            readButton.className = 'bookRead removeButton';
             user.status = 'Read';
         };
     });
