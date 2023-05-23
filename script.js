@@ -4,20 +4,35 @@ let libraryIndexCounter = 0;
 const bookContainer = document.querySelector('.bookContainer');
 const form = document.querySelector('form');
 const overlay = document.querySelector('#overlayDiv');
+const author = document.getElementById('author');
+const title = document.getElementById('title');
+const numPages = document.getElementById('number_of_pages');
+const read = document.getElementById('Read');
+const notRead = document.getElementById('Not Read');
+const formItems = [author, title, numPages, read, notRead];
+
 // Global Event Listeners
+numPages.addEventListener('input', function(event) {
+    bookPageChecker();
+});
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const book = createBook();
-    console.log(Object.values(book))
-    console.log('1:', Object.values(book)[0])
-    if ((Object.values(book)[0] === '') & (Object.values(book)[1] === '') & (Object.values(book)[2] === '')) {
-        return;
+    if (radioBtnValidation() || authorChecker() || titleChecker() || bookPageChecker()) {
+        return
     } else {
-        addBookToLibrary(book);
-        displayBook(myLibrary);
-        closeForm();
-    };
+        const book = createBook();
+        clearForm();
+        if ((Object.values(book)[0] === '') & (Object.values(book)[1] === '') & (Object.values(book)[2] === '')) {
+            return;
+        } else {
+            addBookToLibrary(book);
+            displayBook(myLibrary);
+            closeForm();
+        };
+    }
 });
+
 
 // Creates an object (book) from the information submitted in the form
 function createBook () {
@@ -88,6 +103,71 @@ function toggleReadStatus(user, div,) {
         };
     });
     div.appendChild(readButton);
+};
+
+
+// Form validation
+
+// Checks if a radio button is selected before submission. Otherwise returns error message
+function radioBtnValidation() {
+    const radioBtns = document.getElementsByName('status');
+    for (let i = 0; i < radioBtns.length; i++) {
+        if (radioBtns[i].checked) {
+            return false;
+        };
+    };
+    document.getElementById('errorMessage').textContent = "Please choose an option";
+    return true;
+};
+
+// Checks if the page number is entered before submission. Otherwise returns error message
+function bookPageChecker() {
+    if (numPages.validity.rangeUnderflow) {
+        numPages.setCustomValidity("Enter a value greater than 0");
+        numPages.reportValidity();
+    } else  if (numPages.validity.valueMissing){
+        numPages.setCustomValidity("Enter page count");
+        numPages.reportValidity();
+        return true;
+    } else {
+        numPages.setCustomValidity("");
+    }
+};
+
+// Checks if the author is entered before submission. Otherwise returns error message
+function authorChecker() {
+    if (author.value == '') {
+        author.setCustomValidity('Please enter an author');
+        author.reportValidity();
+        return true;
+    } else {
+        author.setCustomValidity('');
+        return false;
+    };
+};
+
+// Checks if the title is entered before submission. Otherwise returns error message
+function titleChecker() {
+    if (title.value == '') {
+        title.setCustomValidity('Please enter a Title');
+        title.reportValidity();
+        return true;
+    } else {
+        title.setCustomValidity('');
+        return false;
+    };
+};
+
+// Clears the form inputs
+function clearForm() {
+    formItems.forEach(item => {
+        if (item.type === 'radio') {
+            item.checked = false;
+        } else {
+            item.value = '';
+        };
+    });
+    document.getElementById('errorMessage').textContent = '';
 };
 
 function openForm() {
